@@ -36,7 +36,6 @@
 4. ERD(엔티티 관계 다이어그램) 생성 및 내보내기 <br>
 
 <details>
-  <summary>Click untuk melihat Queries</summary>
   
   ```sql
 -- 1) Create > Database.. dengan nama ecommerce_miniproject
@@ -136,7 +135,7 @@ ALTER TABLE order_items_dataset ADD FOREIGN KEY (seller_id) REFERENCES sellers_d
 
 **Hasil ERD :** <br>
 <p align="center">
-  <kbd><img src="asset/gambar_1_ERD.png" width=800px> </kbd> <br>
+  <kbd><img src="asset/image_1.png" width=800px> </kbd> <br>
   Gambar 1. Entity Relationship Diagram
 </p>
 <br>
@@ -449,7 +448,7 @@ GROUP BY 1, 2, 3, 4, 5, 6, 7;
 <br>
 
 <p align="center">
-  <kbd><img src="asset/gambar_6_top.png" width=600px> </kbd> <br>
+  <kbd><img src="asset/image_6.png" width=600px> </kbd> <br>
   Image 6. 연간 총 수익을 차지한 상위 제품 그래프
 </p>
 
