@@ -35,7 +35,6 @@
 3. `ALTER TABLE` 문을 사용하여 기본 키 또는 외래 키를 결정
 4. ERD(엔티티 관계 다이어그램) 생성 및 내보내기 <br>
 
-<details>
   
   ```sql
 -- 1) Create > Database.. dengan nama ecommerce_miniproject
@@ -131,7 +130,6 @@ ALTER TABLE order_items_dataset ADD FOREIGN KEY (product_id) REFERENCES product_
 ALTER TABLE order_items_dataset ADD FOREIGN KEY (seller_id) REFERENCES sellers_dataset;
 
   ```
-</details>
 
 **Hasil ERD :** <br>
 <p align="center">
@@ -149,7 +147,6 @@ ALTER TABLE order_items_dataset ADD FOREIGN KEY (seller_id) REFERENCES sellers_d
 연간 고객 활동 증가율은 월간 활성 사용자(MAU), 신규 고객, 반복 주문 고객, 고객별 평균 주문을 통해 분석
 
 <details>
-  <summary>Click untuk melihat Queries</summary>
   
   ```sql
  --1 각 연도별 평균 월간 활성 고객(월간 활성 사용자) 수를 표시
