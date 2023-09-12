@@ -3,21 +3,7 @@
 
 **Tool** : PostgreSQL <br> 
 **Visualization** : Microsoft Excel <br>
-**Dataset** : Rakamin Academy - [Ecommerce Data]()
-<br>
-<br>
-
-**Table of Contents**
-- [STAGE 0: Problem Statement](https://github.com/faizns/Analyzing-eCommerce-Business-Performance-with-SQL/blob/main/README.md#-stage-0:-problem-statement)
-	- [Background Story](https://github.com/faizns/Analyzing-eCommerce-Business-Performance-with-SQL/blob/main/README.md#background-story)
-	- [Objective](https://github.com/faizns/Analyzing-eCommerce-Business-Performance-with-SQL/blob/main/README.md#objective)
-- [STAGE 1: Data Preparation](https://github.com/faizns/Analyzing-eCommerce-Business-Performance-with-SQL/blob/main/README.md#-stage-1:-Data-Preparation)
-	- [Create Database and ERD](https://github.com/faizns/Analyzing-eCommerce-Business-Performance-with-SQL/blob/main/README.md#create-database-and-erd)
-- [STAGE 2: Data Analysis](https://github.com/faizns/Analyzing-eCommerce-Business-Performance-with-SQL/blob/main/README.md#-stage-2:-data-analysis)
-	- [Annual Customer Activity Growth](https://github.com/faizns/Analyzing-eCommerce-Business-Performance-with-SQL/blob/main/README.md#1-annual-customer-activity-growth)
-	- [Annual Product Category Quality](https://github.com/faizns/Analyzing-eCommerce-Business-Performance-with-SQL/blob/main/README.md#2-annual-product-category-quality)
-	- [Annual Payment Type Usage](https://github.com/faizns/Analyzing-eCommerce-Business-Performance-with-SQL/blob/main/README.md#3-annual-payment-type-usage)
-- [STAGE 3: Summary](https://github.com/faizns/Analyzing-eCommerce-Business-Performance-with-SQL/blob/main/README.md#-stage-3:-summary)
+**Dataset** : Rakamin Academy
 <br>
 <br>
 
@@ -26,36 +12,36 @@
 ## 📂 **STAGE 0: Problem Statement**
 
 ### **Background Story**
-Mengukur performa bisnis merupakan suatu hal yang sangat penting bagi sebuah perusahaan. Ini akan membantu dalam memantau, dan menilai keberhasilan atau kegagalan dari berbagai proses bisnis. Pengukuran performa bisnis dapat dilakukan dengan memperhitungkan beberapa metrik bisnis. Dalam poyek ini akan dilakukan analisis performa bisnis suatu perusahaan eCommerce dengan dengan metrik bisnis yaitu pertumbuhan pelanggan, kualitas produk, dan tipe pembayaran berdasarkan historical data selama tiga tahun.
+비즈니스 성과를 측정하는 것은 기업에게 매우 중요합니다. 이는 다양한 비즈니스 프로세스의 성공 또는 실패를 모니터링하고 평가하는 데 도움이 됩니다. 비즈니스 성과 측정은 여러 비즈니스 지표를 고려하여 수행할 수 있습니다. 본 프로젝트에서는 3년간의 과거 데이터를 기반으로 고객 성장, 제품 품질, 결제 유형 등 비즈니스 지표를 활용하여 전자상거래 기업의 비즈니스 성과 분석을 수행합니다.
 
 ### **Objective**
-Mengumpulkan insight dari analisis dan dengan visualisasi berupa :
-1. **Annual Customer Activity Growth**
-2. **Annual Product Category Quality**
-3. **Annual Payment Type Usage**
+1. **연간 고객 활동 증가** 
+2. **연간 제품 카테고리 품질** 
+3. **연간 결제 방식 사용**
 <br>
 <br>
 
 ---
 
 ## 📂 **STAGE 0: Data Preparation**
+사용된 데이터셋은 브라질의 한 전자상거래 업체의 데이터셋으로 2016년부터 2018년까지 총 99,441건의 주문정보를 담고 있습니다. 
+주문상태, 위치, 상품상세정보, 결제유형, 리뷰 등의 정보를 담고 있습니다.
 
-Dataset yang digunakan adalah dataset sebuah perusahaan eCommerce Brasil yang memiliki informasi pesanan dengan jumlah 99441 dari tahun 2016 hingga 2018. Terdapat fitur-titur yang membuat informasi seperti status pemesanan, lokasi, rincian item, jenis pembayaran, serta ulasan.
+
 
 ### **Create Database and ERD**
-**Langkah-langkah yang dilakukan meliputi:**
-1. Membuat workspace database di dalam pgAdmin dan membuat tabel menggunakan `CREATE TABLE` statement
-2. Melakukan import data csv kedalam database
-3. Menentukan Primary Key atau Foreign Key enggunakan statement `ALTER TABLE`
-4. Membuat dan mengeksport ERD (Entity Relationship Diagram) <br>
+1. pgAdmin 내부에 데이터베이스를 생성하고 `CREATE TABLE` 문을 사용하여 테이블을 생성
+2. CSV 데이터를 데이터베이스로 가져오기 
+3. `ALTER TABLE` 문을 사용하여 기본 키 또는 외래 키를 결정
+4. ERD(엔티티 관계 다이어그램) 생성 및 내보내기 <br>
 
 <details>
   <summary>Click untuk melihat Queries</summary>
   
   ```sql
--- 1) Membuat database melalui klik kanan Databases > Create > Database.. dengan nama ecommerce_miniproject
+-- 1) Create > Database.. dengan nama ecommerce_miniproject
 
--- 2) Membuat tabel menggunakan statement CREATE TABLE dengan mengikuti penamaan kolom di csv dan memastikan tipe datanya sesuai.
+-- 2) Data를 확인 후 CREATE TABLE 문을 사용하여 테이블을 생성
 CREATE TABLE customers_dataset (
 	customer_id varchar,
 	customer_unique_id varchar,
@@ -63,12 +49,14 @@ CREATE TABLE customers_dataset (
 	customer_city varchar,
 	customer_state varchar
 );
+
 CREATE TABLE sellers_dataset (
 	seller_id varchar,
 	seller_zip_code_prefix varchar,
 	seller_city varchar,
 	seller_state varchar
 );
+
 CREATE TABLE geolocation_dataset (
 	geolocation_zip_code_prefix varchar,
 	geolocation_lat decimal,
@@ -76,6 +64,7 @@ CREATE TABLE geolocation_dataset (
 	geolocation_city varchar,
 	geolocation_state varchar
 );
+
 CREATE TABLE product_dataset (
 	product_id varchar,
 	product_category_name varchar,
@@ -87,6 +76,7 @@ CREATE TABLE product_dataset (
 	product_height_cm decimal,
 	product_width_cm decimal
 );
+
 CREATE TABLE orders_dataset (
 	order_id varchar,
 	customer_id varchar,
@@ -97,6 +87,7 @@ CREATE TABLE orders_dataset (
 	order_delivered_customer_date timestamp,
 	order_estimated_delivery_date timestamp
 );
+
 CREATE TABLE order_items_dataset (
 	order_id varchar,
 	order_item_id int,
@@ -106,6 +97,7 @@ CREATE TABLE order_items_dataset (
 	price decimal,
 	fright_value decimal
 );
+
 CREATE TABLE order_payments_dataset (
 	order_id varchar,
 	payment_sequential int,
@@ -113,6 +105,7 @@ CREATE TABLE order_payments_dataset (
 	payment_installments int,
 	payment_value decimal
 );
+
 CREATE TABLE order_reviews_dataset (
 	review_id varchar,
 	order_id varchar,
@@ -123,10 +116,7 @@ CREATE TABLE order_reviews_dataset (
 	review_answer_timestamp timestamp
 );
 
--- 3) Mengimpor file csv ke dalam masing-masing tabel yang telah dibuat dengan klik kanan pada nama tabel > Import/Export Data..
-
--- 4) Menentukan Primary Key dan Foreign Key untuk membuat relasi antar tabelnya,
---    Sebelumnya, memastikan Primary Key memiliki nilai unik dan tipe data sesuai antara Primary Key dan Foreign Key pada dataset.
+-- 3) PRIMARY KEY & FOREIGN KEY 생성 및 지정정
 -- PRIMARY KEY
 ALTER TABLE customers_dataset ADD CONSTRAINT customers_dataset_pkey ADD PRIMARY KEY(customer_id);
 ALTER TABLE sellers_dataset ADD CONSTRAINT sellers_dataset_pkey ADD PRIMARY KEY(seller_id);
@@ -141,7 +131,6 @@ ALTER TABLE order_items_dataset ADD FOREIGN KEY (order_id) REFERENCES orders_dat
 ALTER TABLE order_items_dataset ADD FOREIGN KEY (product_id) REFERENCES product_dataset;
 ALTER TABLE order_items_dataset ADD FOREIGN KEY (seller_id) REFERENCES sellers_dataset;
 
--- 5) Membuat ERD dengan cara klik kanan pada database ecommerce_miniproject > Gererate ERD..
   ```
 </details>
 
@@ -158,13 +147,13 @@ ALTER TABLE order_items_dataset ADD FOREIGN KEY (seller_id) REFERENCES sellers_d
 ## 📂 **STAGE 2: Data Analysis**
 
 ### **1. Annual Customer Activity Growth**
-Pertumbuhan aktivitas pelanggan tahunan dapat dianalisis dari Monthly active user (MAU), pelanggan baru, pelanggan dengan repeat order, dan rata-rata order oleh pelanggan.
+연간 고객 활동 증가율은 월간 활성 사용자(MAU), 신규 고객, 반복 주문 고객, 고객별 평균 주문을 통해 분석
 
 <details>
   <summary>Click untuk melihat Queries</summary>
   
   ```sql
- --1 Menampilkan rata-rata jumlah customer aktif bulanan (monthly active user) untuk setiap tahun
+ --1 각 연도별 평균 월간 활성 고객(월간 활성 사용자) 수를 표시
 SELECT year, FLOOR(AVG(customer_total)) AS avg_mau
 FROM (
 	SELECT 
@@ -180,7 +169,7 @@ GROUP BY 1
 ORDER BY 1
 ;
 
---2 Menampilkan jumlah customer baru pada masing-masing tahun
+--2 매년 신규 고객 수를 표시
 SELECT year, COUNT(customer_unique_id) AS total_new_customer
 FROM (
 	SELECT
@@ -195,7 +184,7 @@ GROUP BY 1
 ORDER BY 1
 ;
 
---3 Menampilkan jumlah customer repeat order pada masing-masing tahun
+--3 매년 고객의 재 주문건수 표시
 SELECT year, count(customer_unique_id) AS total_customer_repeat
 FROM (
 	SELECT
@@ -212,7 +201,7 @@ GROUP BY 1
 ORDER BY 1
 ;
 
---4 Menampilkan rata-rata jumlah order yang dilakukan customer untuk masing-masing tahun
+--4 고객의 연간 평균 주문 건수를 표시
 SELECT year, ROUND(AVG(freq), 3) AS avg_frequency
 FROM (
 	SELECT
@@ -228,7 +217,7 @@ GROUP BY 1
 ORDER BY 1
 ;
 
---5 Menggabungkan ketiga metrik yang telah berhasil ditampilkan menjadi satu tampilan tabel
+--5 위에서 출력한 세개의 결과 값을 하나의 테이블로 결합
 WITH cte_mau AS (
 	SELECT year, FLOOR(AVG(customer_total)) AS avg_mau
 	FROM (
@@ -310,47 +299,47 @@ ORDER BY 1
 </details>
 
 <p align="center">
-Tabel 1. Hasil Analisis Pertumbuhan Aktivitas Pelanggan Tahunan  <br>
+Tabel 1. 연간 고객활동 성장 분석 결과  <br>
   <kbd><img src="asset/activity.png" width=800px> </kbd> <br>
 </p>
 
 <br>
 <p align="center">
-  <kbd><img src="asset/gambar_2_mau_x_newcust.png" width=600px> </kbd> <br>
-  Gambar 2. Grafik Rata-rata MAU dan Pelanggan Baru
+  <kbd><img src="asset/image_2.png" width=600px> </kbd> <br>
+  Image 2. 평균 MAU 및 신규 고객 그래프
 </p>
 
-Secara keseluruhan perusahaan mengalami peningkakatan Monthly Active User serta pelanggan baru setiap tahunnya. Peningkatan yang signifikan terjadi pada tahun 2016 ke 2017, hal ini dikarenakan data transaksi pada tahun 2016 dimulai pada bulan September. <br>
+전반적으로 회사는 월간 활성 사용자와 신규 고객이 매년 증가하고 있습니다.
+2016년부터 2017년까지 큰 폭의 증가가 나타났는데, 이는 2016년 거래 데이터가 9월부터 시작되었기 때문입니다.<br>
 <br>
 <br>
 
 <p align="center">
-  <kbd><img src="asset/gambar_3_repeat order.png" width=600px> </kbd> <br>
-  Gambar 3. Grafik Jumlah Pelanggan yang Melakukan Repeat Order
+  <kbd><img src="asset/image_3.png" width=600px> </kbd> <br>
+  image 3. 재 주문을 한 고객 수 그래프
 </p>
 
-Peningkatan yang signifikan juga terjadi pada jumlah pelanggan yang melakukan repeat order pada tahun 2016 hingga 2017. Namun pada tahun 2018 mengalami sedikit penurunan. <br>
+2016년부터 2017년까지 재주문 고객 수도 크게 증가했습니다. 그러나 2018년에는 소폭 감소했습니다. <br>
 <br>
 <br>
 
 
 <p align="center">
-  <kbd><img src="asset/gambar_4_freq_order.png" width=600px> </kbd> <br>
-  Gambar 4. Grafik Rata-rata Frekuensi Order Pelanggan
+  <kbd><img src="asset/image_4.png" width=600px> </kbd> <br>
+  Image 4. 평균 고객 주문 빈도 그래프
 </p>
 
-Dari analisis dan grafik diatas dapat diketahui bahwa rata-rata pelanggan setiap tahunnya cenderung hanya melakukan order satu kali, artinya mayoritas pelanggan tidak melakukan repeat order.<br>
+위의 분석과 그래프를 보면 평균적인 고객은 매년 한 번만 주문하는 경향이 있다는 것을 알 수 있습니다. 이는 대다수의 해당 쇼핑몰을 사용하는 고객들이 재 주문을 하지 않는다는 것을 의미합니다.<br>
 <br>
 
 ### **2. Annual Product Category Quality**
 
-Kualitas kategori produk tahunan dapat dianalisis dari total pendapatan, total pembatalan pesanan, kategori top produk dan kategori produk yang paling banyak dibatalkan.
+연간 제품 카테고리 품질은 총 매출, 총 주문 취소 수, 상위 제품 카테고리 및 가장 많이 취소된 제품 카테고리를 통해 분석
 
 <details>
-  <summary>Click disini untuk melihat Queries</summary>
 
   ```sql
- --1) Membuat tabel yang berisi informasi pendapatan/revenue perusahaan total untuk masing-masing tahun
+ --1) 매년 회사의 총 수입/수익 정보를 포함하는 테이블을 생성
 CREATE TABLE total_revenue AS
 	SELECT
 		date_part('year', od.order_purchase_timestamp) AS year,
@@ -362,7 +351,7 @@ CREATE TABLE total_revenue AS
 	GROUP BY 1
 	ORDER BY 1;
 
---2) Membuat tabel yang berisi informasi jumlah cancel order total untuk masing-masing tahun
+--2) 각 연도별 총 취소 주문 건수에 대한 정보가 포함된 테이블을 생성
 CREATE TABLE canceled_order AS
 	SELECT
 		date_part('year', order_purchase_timestamp) AS year,
@@ -372,7 +361,7 @@ CREATE TABLE canceled_order AS
 	GROUP BY 1
 	ORDER BY 1;
 		
---3) Membuat tabel yang berisi nama kategori produk yang memberikan pendapatan total tertinggi untuk masing-masing tahun
+--3) 매년 가장 높은 총 수익을 제공하는 제품 카테고리 이름이 포함된 테이블 생성
 CREATE TABLE top_product_category AS
 	SELECT 
 		year,
@@ -396,7 +385,7 @@ CREATE TABLE top_product_category AS
 		) AS sub
 	WHERE ranking = 1;
 	
---4) Membuat tabel yang berisi nama kategori produk yang memiliki jumlah cancel order terbanyak untuk masing-masing tahun
+--4) 매년 취소된 주문 건수가 가장 많은 제품 카테고리 이름이 포함된 테이블을 생성
 CREATE TABLE most_canceled_category AS
 	SELECT 
 		year,
@@ -420,11 +409,11 @@ CREATE TABLE most_canceled_category AS
 		) AS sub
 	WHERE ranking = 1;
 	
--- Tambahan - Menghapus anomali data tahun
+-- 연도 데이터 중 이상 데이터 제거
 DELETE FROM top_product_category WHERE year = 2020;
 DELETE FROM most_canceled_category WHERE year = 2020;
 
--- Menampilkan tabel yang dibutuhkan
+-- 필요한 테이블을 표시
 SELECT 
 	tr.year,
 	tr.revenue AS total_revenue,
@@ -445,51 +434,50 @@ GROUP BY 1, 2, 3, 4, 5, 6, 7;
 </details>
 
 <p align="center">
-  Tabel 2. Hasil Analisis Total Kategori Produk Tahunan <br>
-  <kbd><img src="asset/produk.png" width=1000px> </kbd> <br>
+  Tabel 2. 연간 총 제품 카테고리 분석 결과 <br>
+  <kbd><img src="asset/product.png" width=1000px> </kbd> <br>
 </p>
 
 <br>
 <p align="center">
-  <kbd><img src="asset/gambar_5_total_revenue.png" width=600px> </kbd> <br>
-  Gambar 5. Grafik Total Revenue Pertahun
+  <kbd><img src="asset/image_5.png" width=600px> </kbd> <br>
+  Image 5. 총 연간 수익 그래프
 </p>
 
-Secara keseluruhan revenue perusahaan meningkat setiap tahun. <br>
+전체적으로 회사의 수익은 매년 증가 <br>
 <br>
 <br>
 
 <p align="center">
   <kbd><img src="asset/gambar_6_top.png" width=600px> </kbd> <br>
-  Gambar 6. Grafik Total Revenue Top Produk Pertahun
+  Image 6. 연간 총 수익을 차지한 상위 제품 그래프
 </p>
 
-Revenue yang dihasilkan dari top produk juga meningkat untuk setiap tahunnya. Selain itu setiap tahunnya memiliki jenis kategori top produk yang berbeda. Pada tahun 2018, perusahaan menghasilkan revenue paling tinggi dengan jenis karegori top produk kesehatan dan kecantikan (`health_beauty`). <br>
+상위 제품에서 창출되는 수익도 매년 증가합니다. 그 외에도 매년 다양한 유형의 상위 제품 카테고리가 있습니다. 2018년에는 건강 및 미용 제품 상위 카테고리('health_beauty')에서 가장 높은 수익을 창출했습니다. <br>
 <br>
 <br>
 
 <p align="center">
-  <kbd><img src="asset/gambar_7_cenceled.png" width=600px> </kbd> <br>
-  Gambar 7. Grafik Total Revenue Top Produk Pertahun
+  <kbd><img src="asset/image_7.png" width=600px> </kbd> <br>
+  Image 7. 연간 총 수익 상위 제품 그래프
 </p>
 
-Produk yang sering dibatalkan oleh pelanggan untuk setiap tahunnya juga memiliki jenis kategori yang berbeda dan terus mengalami kenaikan. Tahun 2018 memiliki jumlah produk yang dibatalkan paling banyak dan memiliki jenis kategori yang sama dengan top produk yang paling banyak menghasilkan revenue. Hal tersebut dapat diduga karena jenis kategori kesehatan dan kecantikan sedang mendominasi pasar.  <br>
+매년 고객의 취소가 잦은 상품도 카테고리가 다양해 계속 늘어나고 있습니다. 2018년에는 취소된 제품 수가 가장 많았으며 가장 많은 수익을 창출한 상위 제품과 동일한 카테고리를 차지했습니다. <br>
 <br>
 
 ### **3. Annual Payment Type Usage**
-Tipe pembayaran yang digunakan pelanggan dapat dianalisis dari jenis pembayaran favorit dan jumlah penggunaan untuk setiap jenis pembayaran pertahun. 
+고객이 선호하는 결제 유형과 결제 유형별 연간 이용 건수를 통해 고객이 사용한 결제 유형을 분석 
 
 <details>
-  <summary>Click untuk melihat Queries</summary>
 
   ```sql
--- 1) Menampilkan jumlah penggunaan masing-masing tipe pembayaran secara all time diurutkan dari yang terfavorit
+-- 1) 즐겨찾기 순으로 정렬하여 각 결제 유형의 전체 사용 횟수를 표시
 SELECT payment_type, COUNT(1) 
 FROM order_payments_dataset
 GROUP BY 1
 ORDER BY 2 DESC;
 
--- 2)Menampilkan detail informasi jumlah penggunaan masing-masing tipe pembayaran untuk setiap tahun
+-- 2) 각 연도별 결제수단별 사용량에 대한 상세정보를 표시
 SELECT
 	payment_type,
 	SUM(CASE WHEN year = 2016 THEN total ELSE 0 END) AS "2016",
@@ -512,17 +500,17 @@ ORDER BY 2 DESC;
 </details>
 
 <p align="center">
-  Tabel 3. Hasil Analisis Tipe Pembayaran yang Digunakan Pelanggan <br>
+  Tabel 3. 고객의 결제수단 분석 결과 <br>
   <kbd><img src="asset/payment.png" width=600px> </kbd> <br>
 </p>
 
 <br>
 <p align="center">
-  <kbd><img src="asset/gambar_8_tipe_pembayaran.png" width=600px> </kbd> <br>
-  Gambar 8. Grafik Tipe Pembayaran yang Digunakan Pelanggan Pertahun
+  <kbd><img src="asset/image_8.png" width=600px> </kbd> <br>
+  Image 8. 연간 고객이 사용한 결제 유형 그래프
 </p>
 
-Mayoritas pelanggan melakukan pembayaran menggunakan kartu kredit dan cenderung mengalami peningkatan setiap tahunnya. Pembayaran menggunakan voucher meningkat pada tahun 2017, namun menurun pada tahun 2018. Hal tersebut dapat diduga karena ketersediaan voucher yang diberikan perusahaan lebih sedikit dari tahun lalu. Disisi lain, pelanggan yang melakukan pembayaran dengan kartu debit meningkat secara signifikan pada tahun 2018. Hal tersebut dapat diduga karena kemungkinan terdapat promosi pembayaran untuk kartu debit, sehingga banyak pelanggan yang tertarik untuk menggunakan metode tersebut.
+대부분의 고객은 신용카드를 사용하여 결제하며, 이는 매년 증가하는 경향이 있습니다. 2017년에는 바우처를 이용한 결제가 늘었다가 2018년에는 감소했다. 이는 기업이 제공하는 바우처의 가용량이 작년보다 적어졌기 때문에 예상할 수 있는 현상입니다. 한편, 2018년에는 직불카드를 이용한 결제 고객이 크게 늘어났습니다. 이는 직불카드에 대한 결제 프로모션이 있을 수 있어 이 방법에 관심을 갖는 고객이 많기 때문에 예상할 수 있는 일입니다.
 <br>
 <br>
 
@@ -530,6 +518,8 @@ Mayoritas pelanggan melakukan pembayaran menggunakan kartu kredit dan cenderung 
 ---
 
 ## 📂 **STAGE 3: Summary**
-- Dilihat dari analisis pertumbuhan tahunan pelanggan dapat disimpulkan bahwa **jumlah pelanggan baru dan aktif (MAU) meningkat setiap tahunnya**, namun pelanggan cenderung tidak repeat order atau hanya melakukan pembelian satu kali. Dari hal tersebut perlu adanya strategi bisnis untuk meningkatkan minat pelanggan agar melakukan pembelian misalnya dengan pemberian promo, *call to action*, dan lain sebagainya.
-- Dari analisis kualitas produk tahunan, **revenue terus meningkat dengan kategori produk yang berbeda setiap tahunnya**. Kategori **kesehatan dan kecantikan** menjadi produk best seller sekaligus produk yang paling sering dibatalkan pembeliannya pada tahun 2018. Berdasarkan hasil analisis ini dapat dilakukan strategi bisnis berupa riset produk apa yang akan menjadi trend di tahun selanjutnya, sehingga diharapkan dapat memperbesar peluang perusahaan mendapatkan revenue.
-- **Kartu kredit** merupakan tipe pembayaran mayoritas yang digunakan oleh pelanggan.
+- 연간 고객 성장 분석을 보면 **신규 및 활성 고객(MAU) 수는 매년 증가하고 있지만** 고객은 반복 주문을 하지 않거나 일회성 구매만 하는 경향이 있는 것으로 나타났습니다. 이를 통해 프로모션, *클릭 유도 문구* 등을 제공하여 구매에 대한 고객의 관심을 높이는 비즈니스 전략을 마련하는 것이 필요합니다. 
+- 연간 제품 품질 분석 결과 **매년 다양한 제품 카테고리로 매출이 지속적으로 증가하고 있습니다**. 2018년에는 **헬스&뷰티** 카테고리가 베스트 셀러 상품이자 구매 취소가 가장 많았던 상품이 되었습니다. 본 분석 결과를 바탕으로, 어떤 비즈니스 전략이 무엇인지 연구하는 형태로 사업 전략을 세울 수 있습니다. 제품이 다음 해에는 트렌드가 될 것이므로 회사의 수익 창출 가능성이 높아질 수 있기를 바랍니다. 
+- **신용카드**는 고객이 가장 많이 사용하는 결제 유형입니다.
+
+
