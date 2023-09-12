@@ -146,8 +146,6 @@ ALTER TABLE order_items_dataset ADD FOREIGN KEY (seller_id) REFERENCES sellers_d
 ### **1. Annual Customer Activity Growth**
 연간 고객 활동 증가율은 월간 활성 사용자(MAU), 신규 고객, 반복 주문 고객, 고객별 평균 주문을 통해 분석
 
-<details>
-  
   ```sql
  --1 각 연도별 평균 월간 활성 고객(월간 활성 사용자) 수를 표시
 SELECT year, FLOOR(AVG(customer_total)) AS avg_mau
@@ -292,7 +290,6 @@ GROUP BY 1, 2, 3, 4, 5
 ORDER BY 1
 ;
   ```
-</details>
 
 <p align="center">
 Tabel 1. 연간 고객활동 성장 분석 결과  <br>
@@ -331,8 +328,6 @@ Tabel 1. 연간 고객활동 성장 분석 결과  <br>
 ### **2. Annual Product Category Quality**
 
 연간 제품 카테고리 품질은 총 매출, 총 주문 취소 수, 상위 제품 카테고리 및 가장 많이 취소된 제품 카테고리를 통해 분석
-
-<details>
 
   ```sql
  --1) 매년 회사의 총 수입/수익 정보를 포함하는 테이블을 생성
@@ -427,7 +422,6 @@ JOIN most_canceled_category AS mcc
 	ON co.year = mcc.year
 GROUP BY 1, 2, 3, 4, 5, 6, 7;
   ```
-</details>
 
 <p align="center">
   Tabel 2. 연간 총 제품 카테고리 분석 결과 <br>
@@ -464,8 +458,6 @@ GROUP BY 1, 2, 3, 4, 5, 6, 7;
 ### **3. Annual Payment Type Usage**
 고객이 선호하는 결제 유형과 결제 유형별 연간 이용 건수를 통해 고객이 사용한 결제 유형을 분석 
 
-<details>
-
   ```sql
 -- 1) 즐겨찾기 순으로 정렬하여 각 결제 유형의 전체 사용 횟수를 표시
 SELECT payment_type, COUNT(1) 
@@ -493,7 +485,6 @@ FROM (
 GROUP BY 1
 ORDER BY 2 DESC;
   ```
-</details>
 
 <p align="center">
   Tabel 3. 고객의 결제수단 분석 결과 <br>
