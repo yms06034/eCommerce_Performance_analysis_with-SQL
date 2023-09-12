@@ -1,4 +1,4 @@
-# 💰 **Analyzing E-Commerce Business Performance with SQL**
+# **E-Commerce Business Performance with SQL**
 <br>
 
 **Tool** : PostgreSQL <br> 
